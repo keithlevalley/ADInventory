@@ -6,15 +6,15 @@
    It then will use the invoke-command to retrieve the win32_bios information on each object.
 .EXAMPLE
    Display to the screen all the Serial Numbers for each computer starting with LTCKEITHLAB
-   Get-ADInventory -searchParameter LTCKEITHLAB*
+   Get-ADInventory -searchParameter TestPC*
 
 .EXAMPLE
    Save as a CSV file all the Serial Numbers for each computer starting with LTCKEITHLAB
-   Get-ADInventory -searchParameter LTCKEITHLAB* -outFileName test.csv
+   Get-ADInventory -searchParameter TestPC* -outFileName test.csv
 
 .EXAMPLE
    Display to the screen for each computer starting with LTCKEITHLAB all the Properties of win32_bios
-   Get-ADInventory -searchParameter LTCKEITHLAB* -Property *
+   Get-ADInventory -searchParameter TestPC* -Property *
 #>
 
 function Get-ADInventory
