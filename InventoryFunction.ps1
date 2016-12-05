@@ -69,4 +69,3 @@ function Get-ADQuery
         Get-ADComputer -Filter "Name -like '$searchParameter'" | Select-Object -Property $Property
     }
 } # End Function Get-ADQuery
-} # End Function Get-ADQuery
