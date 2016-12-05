@@ -6,15 +6,15 @@
    It then will use the invoke-command to retrieve the win32_bios information on each object.
 .EXAMPLE
    Display to the screen all the Serial Numbers for each computer starting with LTCKEITHLAB
-   Get-ADInventory -searchParameter TestPC*
+   Get-ADInventory -searchParameter LTCKEITHLAB*
 
 .EXAMPLE
    Save as a CSV file all the Serial Numbers for each computer starting with LTCKEITHLAB
-   Get-ADInventory -searchParameter TestPC* -outFileName test.csv
+   Get-ADInventory -searchParameter LTCKEITHLAB* -outFileName test.csv
 
 .EXAMPLE
    Display to the screen for each computer starting with LTCKEITHLAB all the Properties of win32_bios
-   Get-ADInventory -searchParameter TestPC* -Property *
+   Get-ADInventory -searchParameter LTCKEITHLAB* -Property *
 #>
 
 function Get-ADInventory
@@ -36,9 +36,17 @@ function Get-ADInventory
     if ($outFileName -eq ""){
         $PCInfo | Select-Object -Property $Property | Sort-Object -Property PSComputerName
         }
-    else{
+    elseif ($outFileName.Contains(".csv")){
         $PCInfo | Select-Object -Property $Property | Sort-Object -Property PSComputerName |
         Export-Csv -Path ".\$outFileName"
+    }
+    elseif ($outFileName.Contains(".htm")){
+        $PCInfo | Select-Object -Property $Property | Sort-Object -Property PSComputerName |
+        ConvertTo-Html > ".\$outFileName"
+    }
+    else{
+        $PCInfo | Select-Object -Property $Property | Sort-Object -Property PSComputerName |
+        Out-File ".\$outFileName"
     }
 } # End Function Get-ADInventory
 
@@ -60,4 +68,5 @@ function Get-ADQuery
     else{
         Get-ADComputer -Filter "Name -like '$searchParameter'" | Select-Object -Property $Property
     }
+} # End Function Get-ADQuery
 } # End Function Get-ADQuery
